@@ -41,7 +41,9 @@
         gender:"male",
         roll:"", 
     };
+
     let isDataSubmitted:DATA=DATA.NOT_SUBMIT;
+
 
     function submitForm(){
         let is_input_valid=true;
@@ -99,8 +101,38 @@
             console.error("Could not register you for the Event");
         }
     }
+    
+    let first_name_error=false;
+    function check_first_name(){
+        if(!/[a-z]+/i.test(participant.first_name)) first_name_error=true;
+        else first_name_error=false;
+    }
 
-        
+    
+    let last_name_error=false;
+    function check_last_name(){
+        if(!/[a-z]+/i.test(participant.last_name)) last_name_error=true;
+        else last_name_error=false;
+    }    
+
+    
+    let email_error=false;
+    function check_email(){
+        if(! /[A-Z]{2}[0-9]{2}[A-Z]{3,5}[0-9]{5}@iith\.ac\.in/i.test(participant.email)) email_error=true;
+        else email_error=false;
+    }
+
+    let contact_error=false;
+    function check_contact(){
+        if(! /[0-9]{10}/.test(participant.contact)) contact_error=true;
+        else contact_error=false;
+    }
+
+    let roll_error=false;
+    function check_roll(){
+        if(! /[A-Z]{2}[0-9]{2}[A-Z]{3,5}[0-9]{5}/i.test(participant.roll)) roll_error=true;
+        else roll_error=false;
+    }
 </script>
 
 <div class="flex flex-col py-2 px-6 mx-auto w-full sm:w-4/5 xl:2/5  items-center">
@@ -119,11 +151,11 @@
         <p class="my-1 mt-6 md:text-lg">Name:</p>
         <div class="flex w-full">
             <div class="w-1/2 pr-2">
-                <input type="text" bind:value={participant.first_name} required name="first_name" class="appearance-none w-full px-2 py-1 mr-4 rounded-md bg-white focus:outline-none">
+                <input type="text" bind:value={participant.first_name} required name="first_name" on:focusout={check_first_name} class:text-red-500={first_name_error} class="appearance-none w-full px-2 py-1 mr-4 rounded-md bg-white focus:outline-none">
                 <p class="text-sm font-light text-gray-500">First Name</p>
             </div>
             <div class="w-1/2">
-                <input type="text" bind:value={participant.last_name} required class="appearance-none w-full bg-white px-2 py-1 rounded-md focus:outline-none">
+                <input type="text" bind:value={participant.last_name} required class="appearance-none w-full bg-white px-2 py-1 rounded-md focus:outline-none" on:focusout={check_last_name} class:text-red-500={last_name_error}>
 
                 <p class="text-sm font-light text-gray-500">Last Name</p>    
             </div>
@@ -131,12 +163,12 @@
 
 
         <p class="mt-2 mb-1 md:text-lg">Student Email:</p>
-        <input type="email" required bind:value={participant.email} class="appearance-none w-full bg-white px-2 py-1 rounded-md focus:outline-none">
+        <input type="email" required bind:value={participant.email} class="appearance-none w-full bg-white px-2 py-1 rounded-md focus:outline-none" on:focusout={check_email} class:text-red-500={email_error}>
         <p class="text-sm font-light text-gray-500">eg: xxxxxx@iith.ac.in </p>
 
 
         <p class="mt-2 mb-1 md:text-lg">Student Roll No.:</p>
-        <input type="email" required bind:value={participant.roll} class="appearance-none w-full bg-white px-2 py-1 rounded-md focus:outline-none">
+        <input type="email" required bind:value={participant.roll} class="appearance-none w-full bg-white px-2 py-1 rounded-md focus:outline-none" on:focusout={check_roll} class:text-red-500={roll_error}>
         <p class="text-sm font-light text-gray-500">eg: AI24BTECH11XXX </p>
 
         <div class="flex mt-2">
@@ -151,7 +183,7 @@
             </div>
             <div class="flex w-full flex-col">
                 <p class="mb-1 md:text-lg">Contact No.:</p>
-                <input type="tel" bind:value={participant.contact} required maxlength=10 minlength=10 class="appearance-none w-full rounded-md bg-white px-2 py-1 focus:outline-none">
+                <input type="tel" bind:value={participant.contact} required maxlength=10 minlength=10 class="appearance-none w-full rounded-md bg-white px-2 py-1 focus:outline-none" on:focusout={check_contact} class:text-red-500={contact_error}>
             </div>
         </div>
         <div class="flex w-full items-end">
@@ -163,19 +195,19 @@
 
 {:else if isDataSubmitted == DATA.SUBMIT_OK}
 
-    <div transition:slide class="flex flex-col w-full px-12 items-center mt-6 ">
+    <div transition:slide={{delay:500}} class="flex flex-col w-full px-12 items-center mt-6 ">
         <p class="px-6 py-4 bg-orange-300 rounded-2xl text-center">THANK YOU FOR PARTICIPATING</p>
     </div>
 
 {:else if isDataSubmitted == DATA.SUBMIT_ERROR}
     
-    <div class="flex flex-col items-center w-full mt-6 px-12 " transition:slide>
+    <div class="flex flex-col items-center w-full mt-6 px-12 " transition:slide={{delay:500}}>
         <p class="px-6 py-4 bg-orange-300 rounded-2xl text-center">COULD NOT REGISTER YOU FOR THE EVENT.<br>SORRY :(</p>
     </div>
 
 {:else if isDataSubmitted == DATA.ALREADY_REGISTERED}
 
-    <div transition:slide class="flex flex-col w-full px-12 items-center mt-6 ">
+    <div transition:slide={{delay:500}} class="flex flex-col w-full px-12 items-center mt-6 ">
         <p class="px-6 py-4 bg-orange-300 rounded-2xl text-center">You have already registered for this event. '^'</p>
     </div>
 

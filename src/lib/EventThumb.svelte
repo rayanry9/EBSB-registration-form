@@ -15,16 +15,23 @@
 	let event_clicked = false;
 </script>
 
-<div on:click={() => (event_clicked = !event_clicked)} class="flex flex-col w-4/6 mb-2 mt-4 mx-4 md:w-2/5 lg:w-1/3 xl:w-1/4 2xl:w-1/5">
-	<img src={event_data.thumbnail_src} class="w-full h-72 rounded-lg" />
+<div
+	on:click={() => (event_clicked = !event_clicked)}
+	class="flex flex-col w-4/6 mb-2 mt-4 mx-4 md:w-2/5 lg:w-1/3 xl:w-1/4 2xl:w-1/5"
+>
+	<img src={event_data.thumbnail_src} class="w-full h-72 rounded-lg cursor-pointer" />
 	<div class="flex flex-col items-center py-1">
 		<p class="text-lg font-bold mb-1 md:text-xl xl:text2xl">{event_data.name}</p>
 		{#if event_clicked}
 			<div
 				class="flex flex-col px-2 text-center"
-				transition:slide={{ duration: 600, easing: cubicInOut }} >
+				transition:slide={{ duration: 600, easing: cubicInOut }}
+			>
 				<p class="text-sm pb-2 md:text-md xl:text-lg">{event_data.description}</p>
-				<button class="bg-blue-400 text-white px-4 py-1 rounded-md ml-auto justify-self-end mb-3 md:text-md xl:text-lg" on:click|stopPropagation ><a href="/register?id={event_data.id}">Register ></a></button>
+				<button
+					class="bg-blue-400 text-white px-4 py-1 rounded-md ml-auto justify-self-end mb-3 md:text-md xl:text-lg"
+					on:click|stopPropagation><a href="/register?id={event_data.id}">Register ></a></button
+				>
 			</div>
 		{/if}
 		<p class="text-sm md:text-md xl:text-lg">{event_data.time}</p>

@@ -12,11 +12,11 @@
 </div>
 
 <div class="flex flex-wrap mx-auto justify-center items-baseline">
-	<EventThumb />       
-	<EventThumb />       
-	<EventThumb />       
-	<EventThumb />       
-	<EventThumb />       
+	<EventThumb />
+	<EventThumb />
+	<EventThumb />
+	<EventThumb />
+	<EventThumb />
 	<EventThumb />
 	<EventThumb />
 	<EventThumb />

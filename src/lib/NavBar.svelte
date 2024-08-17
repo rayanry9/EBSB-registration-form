@@ -10,14 +10,19 @@
 </script>
 
 <div class="w-full flex flex-row p-2 items-center justify-start">
-	<img src={logo} on:click={()=>goto("/")} class="h-14 peer" alt="logo" />
-	<img src={wording} on:click={()=>goto("/")} class="h-8 w-fit pl-4 peer-hover:visible sm:invisible" alt="wording" />
+	<img src={logo} on:click={() => goto('/')} class="h-14 peer md:h-20" alt="logo" />
+	<img
+		src={wording}
+		on:click={() => goto('/')}
+		class="h-8 w-fit pl-4 peer-hover:visible sm:invisible md:h-12"
+		alt="wording"
+	/>
 
 	{#if !menuBtnClicked}
 		<img
 			src={menuBtn}
 			on:click={() => (menuBtnClicked = true)}
-			class="h-6 ml-auto justify-self-end"
+			class="h-6 ml-auto justify-self-end md:hidden"
 			alt="menuBtn"
 			in:fade|local
 		/>
@@ -27,7 +32,7 @@
 			on:click={() => (menuBtnClicked = false)}
 			in:fade|local
 			class:hidden={!menuBtnClicked}
-			class="h-6 justify-self-end ml-auto"
+			class="h-6 justify-self-end ml-auto md:hidden"
 			alt="close"
 		/>
 	{/if}
