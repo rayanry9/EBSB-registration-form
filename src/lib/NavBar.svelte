@@ -4,13 +4,14 @@
 	import wording from '$lib/images/wording.png';
 	import menuBtn from '$lib/icons/menu-outline.svg';
 	import closeBtn from '$lib/icons/close-outline.svg';
+	import { goto } from '$app/navigation';
 
 	let menuBtnClicked = false;
 </script>
 
 <div class="w-full flex flex-row p-2 items-center justify-start">
-	<img src={logo} class="h-14 peer" alt="logo" />
-	<img src={wording} class="h-8 w-fit pl-4 peer-hover:visible sm:invisible" alt="wording" />
+	<img src={logo} on:click={()=>goto("/")} class="h-14 peer" alt="logo" />
+	<img src={wording} on:click={()=>goto("/")} class="h-8 w-fit pl-4 peer-hover:visible sm:invisible" alt="wording" />
 
 	{#if !menuBtnClicked}
 		<img
