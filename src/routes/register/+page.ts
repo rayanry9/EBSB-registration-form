@@ -1,15 +1,16 @@
 import type { PageLoad } from './$types';
 import type { Event_Data } from '$lib/types';
+import { event_data } from '$lib/store/eventData';
 
+const data=event_data;
 function findEventData(id: string): Event_Data {
 	let event_data: Event_Data = {
 		id: id,
-		name: 'Event Name',
-		time: 'XX:XX AP to XX::XX PA',
-		location: 'Location',
-		thumbnail_src: '/src/lib/images/placeholder.webp',
-		description:
-			'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur accumsan nunc risus, bibendum vulputate justo interdum et. Praesent ut mi lectus. Integer eleifend quis magna in dapibus. Maecenas scelerisque enim eu quam sollicitudin, euismod tristique justo accumsan. Vivamus auctor lectus vel tellus maximus ultrices. Fusce posuere risus id arcu lobortis tincidunt nec et augue. Duis purus dolor, lobortis eget efficitur.'
+		name: data.filter((ev)=>ev.id==id).at(0)!.name,
+		time: data.filter((ev)=>ev.id==id).at(0)!.time,
+		location: data.filter((ev)=>ev.id==id).at(0)!.location,
+		thumbnail_src: data.filter((ev)=>ev.id==id).at(0)?.thumbnail_src,
+		description: data.filter((ev)=>ev.id==id).at(0)!.description
 	};
 	return event_data;
 }

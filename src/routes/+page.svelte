@@ -1,5 +1,7 @@
 <script lang="ts">
 	import EventThumb from '$lib/EventThumb.svelte';
+    import {event_data} from '$lib/store/eventData'
+
 </script>
 
 <div class="flex flex-col pb-2 pt-2 px-4">
@@ -11,14 +13,17 @@
 	</p>
 </div>
 
-<div class="flex flex-wrap mx-auto justify-center items-baseline">
-	<EventThumb />
-	<EventThumb />
-	<EventThumb />
-	<EventThumb />
-	<EventThumb />
-	<EventThumb />
-	<EventThumb />
-	<EventThumb />
-	<EventThumb />
+<div class="flex flex-wrap mx-auto justify-center items-baseline ">
+    {#each event_data as ev}
+        <EventThumb event_data={
+            {
+                id:ev.id,
+                name: ev.name,
+                description: ev.description,
+                time: ev.time,
+                location: ev.location,
+                thumbnail_src: ev.thumbnail_src
+            }
+        }/>
+    {/each}
 </div>

@@ -3,29 +3,14 @@
     import { initializeApp } from "firebase/app";
 	import type { PageData } from './$types';
 	import { fade, slide } from 'svelte/transition';
+    import type {Participant} from "$lib/types";
+    import { firebaseConfig } from '$lib/types';
 
-    const firebaseConfig = {
-      apiKey: "AIzaSyAWGFukqeiv3zKSL-oOqCWC5dz_AX6FcsM",
-      authDomain: "ebsb-register.firebaseapp.com",
-      projectId: "ebsb-register",
-      storageBucket: "ebsb-register.appspot.com",
-      messagingSenderId: "662765326986",
-      appId: "1:662765326986:web:d5bc36850368d529a81373"
-    };
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
 
     export let data:PageData;
     
-    interface Participant{
-        first_name: string,
-        last_name:string,
-        email: string,
-        contact: string,
-        gender: string,
-        roll: string
-    }
-
     enum DATA{
         SUBMIT_OK,
         SUBMIT_ERROR,
@@ -50,24 +35,24 @@
 
         try{
 
-            if(!/[a-z]+/i.test(participant.first_name)) {
+            if(!/^[a-z]+$/i.test(participant.first_name)) {
                 alert("Invalid First Name");
                 is_input_valid=false;
             }
-            if(!/[a-z]+/i.test(participant.last_name)) {
+            if(!/^[a-z]+$/i.test(participant.last_name)) {
                 alert("Invalid Last Name");
 
                 is_input_valid=false;
             }
-            if(! /[A-Z]{2}[0-9]{2}[A-Z]{3,5}[0-9]{5}/i.test(participant.roll)){
+            if(! /^[A-Z]{2}[0-9]{2}[A-Z]{3,5}[0-9]{5}/i.test(participant.roll)){
                 alert("Enter a valid roll number");
                 is_input_valid=false;
             }
-            if(! /[A-Z]{2}[0-9]{2}[A-Z]{3,5}[0-9]{5}@iith\.ac\.in/i.test(participant.email)){
+            if(! /^[A-Z]{2}[0-9]{2}[A-Z]{3,5}[0-9]{5}@iith\.ac\.in/i.test(participant.email)){
                 alert("Enter a valid college mail address");
                 is_input_valid=false;
             }
-            if(! /[0-9]{10}/.test(participant.contact)){
+            if(! /^[0-9]{10}/.test(participant.contact)){
                 alert("Enter a valid mobile number");
                 is_input_valid=false;
             }
@@ -104,21 +89,21 @@
     
     let first_name_error=false;
     function check_first_name(){
-        if(!/[a-z]+/i.test(participant.first_name)) first_name_error=true;
+        if(!/^[a-z]+$/i.test(participant.first_name)) first_name_error=true;
         else first_name_error=false;
     }
 
     
     let last_name_error=false;
     function check_last_name(){
-        if(!/[a-z]+/i.test(participant.last_name)) last_name_error=true;
+        if(!/^[a-z]+$/i.test(participant.last_name)) last_name_error=true;
         else last_name_error=false;
     }    
 
     
     let email_error=false;
     function check_email(){
-        if(! /[A-Z]{2}[0-9]{2}[A-Z]{3,5}[0-9]{5}@iith\.ac\.in/i.test(participant.email)) email_error=true;
+        if(! /^[A-Z]{2}[0-9]{2}[A-Z]{3,5}[0-9]{5}@iith\.ac\.in/i.test(participant.email)) email_error=true;
         else email_error=false;
     }
 
@@ -130,7 +115,7 @@
 
     let roll_error=false;
     function check_roll(){
-        if(! /[A-Z]{2}[0-9]{2}[A-Z]{3,5}[0-9]{5}/i.test(participant.roll)) roll_error=true;
+        if(! /^[A-Z]{2}[0-9]{2}[A-Z]{3,5}[0-9]{5}/i.test(participant.roll)) roll_error=true;
         else roll_error=false;
     }
 </script>
